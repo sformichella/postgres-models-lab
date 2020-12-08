@@ -3,13 +3,12 @@ const express = require('express');
 const app = express();
 
 const Theorem = require('./lib/models/theorem');
-const Mathematician = require('./lib/models/mathematician');
-const ProofTechnique = require('./lib/models/proofTechnique');
-const FamousNumber = require('./lib/models/famousNumber');
-const Paradox = require('./lib/models/paradox');
+
 
 app.use(express.json());
 const port = 7890;
+
+
 
 
 // Theorem Routes
@@ -28,8 +27,21 @@ app.post('/make/theorem', (req, res) => {
     .then(thm => res.send(thm));
 })
 
+app.post('/update/theorems/:id', (req, res) => {
+  Theorem.update(req.query.id, req.body)
+    .then(thm => res.send(thm));
+})
+
+app.get('/delete/theorems/:id', (req, res) => {
+  Theorem.delete(req.query.id)
+    .then(thm => res.send(thm));
+})
+
 
 
 app.listen(port, () => {
   console.log(`Started on ${port}.`);
 })
+
+
+module.exports = app;
