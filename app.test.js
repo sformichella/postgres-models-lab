@@ -79,4 +79,11 @@ describe('theorems routes', () => {
 
     expect(response.body).toEqual(updatedTestTheorem);
   });
+
+  it('should delete a theorem', async() => {
+    const deleteResponse = await request(app)
+      .delete('/theorems/2');
+
+    expect(deleteResponse.body).toEqual(calculusTheorem);
+  });
 });

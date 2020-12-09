@@ -28,7 +28,7 @@ app.put('/theorems/:id', (req, res) => {
     .then(thm => res.send(thm));
 });
 
-app.delete('theorems/:id', (req, res) => {
+app.delete('/theorems/:id', (req, res) => {
   Theorem.delete(req.params.id)
     .then(thm => res.send(thm));
 });
