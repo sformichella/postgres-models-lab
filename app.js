@@ -19,7 +19,7 @@ app.get('/theorems/:id', (req, res) => {
 });
 
 app.post('/theorems', (req, res) => {
-  Theorem.insert(req.body)
+  Theorem.make(req.body)
     .then(thm => res.send(thm));
 });
 

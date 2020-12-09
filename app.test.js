@@ -23,23 +23,26 @@ const calculusTheorem = {
 describe('GET theorems', () => {
 
   beforeAll(async() => {
-    const setupSQL = await fsPromises.readFile('./sql/setup.sql');
+    const setupSQL = await fsPromises.readFile('./sql/setup.sql', 'utf-8');
 
-    pool.query(setupSQL);
+    await pool.query(setupSQL);
   });
 
   afterAll(async() => {
     await pool.end();
   });
-  
 
-  it('returns some theorems', async() => {
+  it('should add a theorem and then return it', async() => {
     const response = await request(app)
-      .get('/theorems')
-      .expect('Content-Type', /json/)
-      .expect(200);
+      .post('/theorems')
+      .send(testTheorem);
 
-    expect(response.body.length > 0);
+    expect(response.body).toEqual({
+      'id': '1',
+      'title': 'Test Theorem',
+      'description': 'A fundamental theorem for testing http request',
+      'url': 'test-theorem.com'
+    });
   });
 
   it('returns a theorem', async() => {
@@ -50,6 +53,17 @@ describe('GET theorems', () => {
 
     expect(response.body).toEqual(calculusTheorem);
   });
+
+  it('returns some theorems', async() => {
+    const response = await request(app)
+      .get('/theorems')
+      .expect('Content-Type', /json/)
+      .expect(200);
+
+    expect(response.body.length > 0);
+  });
+
+  
 });
 
 
