@@ -86,4 +86,25 @@ describe('theorems routes', () => {
 
     expect(deleteResponse.body).toEqual(calculusTheorem);
   });
+
+  it('should return an error message', async() => {
+    const errorMessage = await request(app)
+      .get('/theorems/2');
+
+    expect(errorMessage).toEqual('No theorem with an ID of 2');
+  });
+
+  it('should return some theores', async() => {
+    const updatedTestTheorem = {
+      'id': '1',
+      'title': 'Really Cool Test Theorem',
+      'description': 'A fundamental theorem for testing http request',
+      'url': 'test-theorem.com'
+    };
+
+    const theorems = await request(app)
+      .get('/theorems');
+
+    expect(theorems.body).toEqual([updatedTestTheorem]);
+  });
 });
