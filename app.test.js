@@ -21,7 +21,7 @@ const calculusTheorem = {
 
 
 
-describe('GET theorems', () => {
+describe('theorems routes', () => {
 
   beforeAll(async() => {
     const setupSQL = await fsPromises.readFile('./sql/setup.sql', 'utf-8');
@@ -65,5 +65,18 @@ describe('GET theorems', () => {
     expect(response.body).toEqual([testTheorem, calculusTheorem]);
   });
 
-  
+  it('should update a theorem', async() => {
+    const updatedTestTheorem = {
+      'id': '1',
+      'title': 'Really Cool Test Theorem',
+      'description': 'A fundamental theorem for testing http request',
+      'url': 'test-theorem.com'
+    };
+
+    const response = await request(app)
+      .put('/theorems/1')
+      .send(updatedTestTheorem);
+
+    expect(response.body).toEqual(updatedTestTheorem);
+  });
 });
