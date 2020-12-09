@@ -6,6 +6,7 @@ const pool = require('./lib/utils/pool');
 
 
 const testTheorem = {
+  'id': '1',
   'title': 'Test Theorem',
   'description': 'A fundamental theorem for testing http request',
   'url': 'test-theorem.com'
@@ -38,12 +39,7 @@ describe('GET theorems', () => {
       .post('/theorems')
       .send(testTheorem);
 
-    expect(response.body).toEqual({
-      'id': '1',
-      'title': 'Test Theorem',
-      'description': 'A fundamental theorem for testing http request',
-      'url': 'test-theorem.com'
-    });
+    expect(response.body).toEqual(testTheorem);
   });
 
   it('returns a theorem', async() => {
@@ -52,12 +48,7 @@ describe('GET theorems', () => {
       .expect('Content-Type', /json/)
       .expect(200);
 
-    expect(response.body).toEqual({
-      'id': '1',
-      'title': 'Test Theorem',
-      'description': 'A fundamental theorem for testing http request',
-      'url': 'test-theorem.com'
-    });
+    expect(response.body).toEqual(testTheorem);
   });
 
   it('returns some theorems', async() => {
@@ -71,15 +62,7 @@ describe('GET theorems', () => {
       .expect(200);
 
     expect(response.body.length > 0);
-    expect(response.body).toEqual([
-      {
-        'id': '1',
-        'title': 'Test Theorem',
-        'description': 'A fundamental theorem for testing http request',
-        'url': 'test-theorem.com'
-      },
-      calculusTheorem
-    ])
+    expect(response.body).toEqual([testTheorem, calculusTheorem]);
   });
 
   
