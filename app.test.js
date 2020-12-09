@@ -1,6 +1,6 @@
 const request = require('supertest');
 
-const app = require('./index');
+const app = require('./app');
 const pool = require('./lib/utils/pool');
 
 
@@ -32,7 +32,7 @@ describe('GET theorems', () => {
       .expect('Content-Type', /json/)
       .expect(200);
 
-    expect(response.length > 0);
+    expect(response.body.length > 0);
   });
 
   it('returns a theorem', async() => {
