@@ -34,7 +34,7 @@ describe('theorems routes', () => {
   });
 
 
-  it('should add a theorem and then return it', async() => {
+  it('add a theorem and then return it', async() => {
     const response = await request(app)
       .post('/theorems')
       .send(testTheorem);
@@ -42,7 +42,7 @@ describe('theorems routes', () => {
     expect(response.body).toEqual(testTheorem);
   });
 
-  it('returns a theorem', async() => {
+  it('return a theorem', async() => {
     const response = await request(app)
       .get('/theorems/1')
       .expect('Content-Type', /json/)
@@ -51,7 +51,7 @@ describe('theorems routes', () => {
     expect(response.body).toEqual(testTheorem);
   });
 
-  it('returns some theorems', async() => {
+  it('return some theorems', async() => {
     await request(app)
       .post('/theorems')
       .send(calculusTheorem);
@@ -65,7 +65,7 @@ describe('theorems routes', () => {
     expect(response.body).toEqual([testTheorem, calculusTheorem]);
   });
 
-  it('should update a theorem', async() => {
+  it('update a theorem', async() => {
     const updatedTestTheorem = {
       'id': '1',
       'title': 'Really Cool Test Theorem',
@@ -80,21 +80,21 @@ describe('theorems routes', () => {
     expect(response.body).toEqual(updatedTestTheorem);
   });
 
-  it('should delete a theorem', async() => {
+  it('delete a theorem', async() => {
     const deleteResponse = await request(app)
       .delete('/theorems/2');
 
     expect(deleteResponse.body).toEqual(calculusTheorem);
   });
 
-  it('should return an error message', async() => {
+  it('return an error message', async() => {
     const errorMessage = await request(app)
       .get('/theorems/2');
 
     expect(errorMessage.text).toEqual('No theorem with an ID of 2');
   });
 
-  it('should return some theores', async() => {
+  it('return some theorems', async() => {
     const updatedTestTheorem = {
       'id': '1',
       'title': 'Really Cool Test Theorem',
