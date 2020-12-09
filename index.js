@@ -15,33 +15,33 @@ const port = 7890;
 app.get('/theorems', (req, res) => {
   Theorem.getAll()
     .then(thms => res.send(thms));
-})
+});
 
 app.get('/theorems/:id', (req, res) => {
-  Theorem.getById(req.query.id)
+  Theorem.getById(req.params.id)
     .then(thm => res.send(thm));
-})
+});
 
 app.post('/make/theorem', (req, res) => {
   Theorem.insert(req.body)
     .then(thm => res.send(thm));
-})
+});
 
 app.post('/update/theorems/:id', (req, res) => {
-  Theorem.update(req.query.id, req.body)
+  Theorem.update(req.params.id, req.body)
     .then(thm => res.send(thm));
-})
+});
 
 app.get('/delete/theorems/:id', (req, res) => {
-  Theorem.delete(req.query.id)
+  Theorem.delete(req.params.id)
     .then(thm => res.send(thm));
-})
+});
 
 
 
 app.listen(port, () => {
   console.log(`Started on ${port}.`);
-})
+});
 
 
 module.exports = app;
