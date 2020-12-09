@@ -91,7 +91,7 @@ describe('theorems routes', () => {
     const errorMessage = await request(app)
       .get('/theorems/2');
 
-    expect(errorMessage).toEqual('No theorem with an ID of 2');
+    expect(errorMessage.text).toEqual('No theorem with an ID of 2');
   });
 
   it('should return some theores', async() => {

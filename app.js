@@ -15,7 +15,8 @@ app.get('/theorems', (req, res) => {
 
 app.get('/theorems/:id', (req, res) => {
   Theorem.getById(req.params.id)
-    .then(thm => res.send(thm));
+    .then(thm => res.send(thm))
+    .catch(err => res.send(err.message));
 });
 
 app.post('/theorems', (req, res) => {
