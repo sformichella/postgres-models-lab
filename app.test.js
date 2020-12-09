@@ -1,4 +1,5 @@
 const request = require('supertest');
+const fsPromises = require('fs').promises;
 
 const app = require('./app');
 const pool = require('./lib/utils/pool');
@@ -20,6 +21,12 @@ const calculusTheorem = {
 
 
 describe('GET theorems', () => {
+
+  beforeAll(async() => {
+    const setupSQL = await fsPromises.readFile('./sql/setup.sql');
+
+    pool.query(setupSQL);
+  });
 
   afterAll(async() => {
     await pool.end();
