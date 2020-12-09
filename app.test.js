@@ -32,6 +32,7 @@ describe('GET theorems', () => {
     await pool.end();
   });
 
+
   it('should add a theorem and then return it', async() => {
     const response = await request(app)
       .post('/theorems')
@@ -51,7 +52,12 @@ describe('GET theorems', () => {
       .expect('Content-Type', /json/)
       .expect(200);
 
-    expect(response.body).toEqual(calculusTheorem);
+    expect(response.body).toEqual({
+      'id': '1',
+      'title': 'Test Theorem',
+      'description': 'A fundamental theorem for testing http request',
+      'url': 'test-theorem.com'
+    });
   });
 
   it('returns some theorems', async() => {
